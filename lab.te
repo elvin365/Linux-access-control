@@ -1,0 +1,21 @@
+policy_module(lab,1.0)
+require {
+ type unconfined_t;
+ type setroubleshootd_t;
+}
+
+type rule1_t;
+fs_associate(rule1_t);
+allow unconfined_t rule1_t:{ file} {relabelto getattr append open read};
+allow setroubleshootd_t rule1_t:{ file} {relabelto getattr append open read};
+
+type rule2_t;
+fs_associate(rule2_t);
+allow unconfined_t rule2_t:file {relabelto getattr read write open unlink};
+allow setroubleshootd_t rule2_t:file {relabelto getattr read write open unlink};
+
+type rule3_t;
+fs_associate(rule3_t);
+allow unconfined_t rule3_t:file {relabelto getattr read write open rename};
+allow setroubleshootd_t rule3_t:file {relabelto getattr read write open rename};
+
